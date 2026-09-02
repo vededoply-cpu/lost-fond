@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>NAME - Lost &amp; Found Portal</title>
+  <meta name="description"
+    content="National Lost & Found Portal for Vehicles, Valuables, Gold, Property Papers, and General Items. Search and register lost or found property.">
+
+  <!-- PWA & Mobile Web App Meta Tags -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#f15a24">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="NAME">
+  <link rel="apple-touch-icon" href="assets/icons/icon.svg">
+  <link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg">
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      color: #000000 !important;
+    }
+
+    body {
+      background-color: #f15a24;
+      color: #000000 !important;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      padding-bottom: 60px;
+    }
+
+    @media (min-width: 992px) {
+      body {
+        padding-bottom: 0;
+      }
+    }
+
+    /* 1. Top Illustration Header Banner */
+    .top-banner-graphics {
+      background: transparent;
+      padding: 6px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid #000000;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .top-banner-graphics img {
+      height: 75px;
+      object-fit: contain;
+    }
+
+    /* 2. Brand Name, Tagline & Navigation Menu Row */
+    .header-nav-row {
+      background: transparent;
+      padding: 10px 20px;
+      border-bottom: 2px solid #000000;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .brand-title-yellow {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: 34px;
+      color: #ffff00 !important;
+      text-transform: uppercase;
+      line-height: 1;
+      letter-spacing: 0.5px;
+      text-shadow: 1px 1px 0 #000000;
+    }
+
+    .header-slogan-wireframe {
+      font-size: 22px;
+      font-weight: 800;
+      color: #000000 !important;
+      text-align: center;
+      line-height: 1.4;
+      flex: 1 1 450px;
+      margin: 8px 15px;
+    }
+
+    .btn-signin-header {
+      background: #ffcc80;
+      color: #000000 !important;
+      border: 2px solid #000000;
+      font-weight: 800;
+      font-size: 14px;
+      padding: 6px 16px;
+      border-radius: 4px;
+      text-decoration: none;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      box-shadow: 2px 2px 0 #000000;
+      transition: all 0.15s ease;
+    }
+
+    .btn-signin-header:hover {
+      background: #ffa726;
+    }
+
+    .main-nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .main-nav-menu a {
+      color: #000000 !important;
+      font-weight: 800;
+      font-size: 14.5px;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: opacity 0.2s;
+    }
+
+    .main-nav-menu a:hover {
+      text-decoration: underline;
+    }
+
+    /* 3. Action Buttons & Search Filter Bar */
+    .action-search-bar {
+      padding: 12px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 2px solid #000000;
+      background: transparent;
+    }
+
+    .action-buttons-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-wireframe-lost,
+    .btn-wireframe-fund {
+      background: #ffcc80;
+      color: #000000 !important;
+      border: 2px solid #000000;
+      font-weight: 900;
+      font-size: 16px;
+      padding: 5px 22px;
+      border-radius: 2px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 2px 2px 0 #000000;
+      transition: all 0.15s ease;
+    }
+
+    .btn-wireframe-lost:hover,
+    .btn-wireframe-fund:hover {
+      background: #ffa726;
+      transform: translateY(-1px);
+    }
+
+    .search-inputs-group {
+      display: flex;
+      align-items: center;
+      flex: 1 1 500px;
+      max-width: 750px;
+      border: 2px solid #000000;
+      background: #ffcc80;
+      border-radius: 2px;
+      box-shadow: 2px 2px 0 #000000;
+      overflow: hidden;
+    }
+
+    .search-input-field {
+      border: none;
+      border-right: 1px solid #000000;
+      outline: none;
+      padding: 7px 12px;
+      font-weight: 700;
+      font-size: 14px;
+      background: transparent;
+      color: #000000 !important;
+      flex: 1;
+      min-width: 80px;
+    }
+
+    .search-input-field:last-of-type {
+      border-right: none;
+    }
+
+    .search-select-field {
+      border: none;
+      border-right: 1px solid #000000;
+      outline: none;
+      padding: 7px 10px;
+      font-weight: 700;
+      font-size: 13.5px;
+      background: transparent;
+      color: #000000 !important;
+      cursor: pointer;
+      flex: 1.2;
+    }
+
+    .search-btn-icon {
+      background: #ffcc80;
+      border: none;
+      border-left: 2px solid #000000;
+      padding: 7px 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 16px;
+    }
+
+    .search-btn-icon:hover {
+      background: #ffa726;
+    }
+
+    /* 4. Dual Side-by-Side Tables Grid ("Lost tebal" & "Fund tebal") */
+    .tables-section-container {
+      padding: 16px 20px 30px 20px;
+    }
+
+    .wireframe-table-card {
+      background: transparent;
+      border: 2px solid #000000;
+      box-shadow: 3px 3px 0 #000000;
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .table-title-header {
+      background: transparent;
+      border-bottom: 2px solid #000000;
+      padding: 8px;
+      text-align: center;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: 20px;
+      color: #000000 !important;
+      text-transform: capitalize;
+    }
+
+    .table-scroll-container {
+      width: 100%;
+      overflow-x: auto;
+      position: relative;
+      max-height: 700px;
+      overflow-y: auto;
+    }
+
+    .custom-dual-table {
+      width: 100%;
+      border-collapse: collapse !important;
+      border: none;
+      margin-bottom: 0;
+    }
+
+    .custom-dual-table th,
+    .custom-dual-table td {
+      border: 1px solid #000000 !important;
+      padding: 8px 10px;
+      text-align: center;
+      vertical-align: middle;
+      font-weight: 700;
+      font-size: 14px;
+      color: #000000 !important;
+      background: transparent !important;
+    }
+
+    .custom-dual-table thead th {
+      background: transparent !important;
+      font-weight: 900;
+      font-size: 15px;
+    }
+
+    .custom-dual-table tbody tr:hover td {
+      background-color: rgba(0, 0, 0, 0.08) !important;
+      cursor: pointer;
+    }
+
+    .table-right-scrollbar-accent {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 12px;
+      background: #000000;
+      pointer-events: none;
+    }
+
+    /* 5. Mobile Tab Switcher Buttons (visible on small screens) */
+    .mobile-tab-toggle-bar {
+      display: none;
+      padding: 10px 20px 0 20px;
+      gap: 10px;
+    }
+
+    .mobile-tab-btn {
+      flex: 1;
+      padding: 8px;
+      font-weight: 900;
+      border: 2px solid #000000;
+      background: #ffcc80;
+      color: #000000 !important;
+      border-radius: 2px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .mobile-tab-btn.active {
+      background: #000000;
+      color: #ffff00 !important;
+    }
+
+    @media (max-width: 991px) {
+      .mobile-tab-toggle-bar {
+        display: flex;
+      }
+    }
+
+    /* 6. Footer Layout (3 Columns matching wireframe) */
+    .wireframe-site-footer {
+      background: transparent;
+      color: #000000 !important;
+      padding: 25px 20px 15px 20px;
+      border-top: 3px solid #000000;
+    }
+
+    .footer-col-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: 16px;
+      color: #000000 !important;
+      margin-bottom: 10px;
+    }
+
+    .footer-links-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-links-list li {
+      margin-bottom: 4px;
+    }
+
+    .footer-links-list a {
+      color: #000000 !important;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .footer-links-list a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-contact-info p {
+      margin-bottom: 3px;
+      font-weight: 600;
+      font-size: 14px;
+      color: #000000 !important;
+    }
+
+    .copyright-bar {
+      border-top: 1px solid #000000;
+      margin-top: 20px;
+      padding-top: 12px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 13px;
+      color: #000000 !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 1. Top Illustration Header Banner (All 6 Images) -->
+  <div class="top-banner-graphics" style="justify-content: space-around; padding: 12px 16px; gap: 20px;">
+    <img src="assets/images/1.png" alt="Colored Burglar" style="height: 80px; object-fit: contain;">
+    <img src="assets/images/2.png" alt="4 Frames" style="height: 80px; object-fit: contain;">
+    <img src="assets/images/3.png" alt="B&W Burglar" style="height: 80px; object-fit: contain;">
+    <img src="assets/images/4.png" alt="House Thief" style="height: 80px; object-fit: contain;">
+    <img src="assets/images/5.png" alt="Vehicle Theft" style="height: 80px; object-fit: contain;">
+    <img src="assets/images/6.png" alt="Investigation" style="height: 80px; object-fit: contain;">
+  </div>
+
+  <!-- 2. Brand Name, Slogan Tagline & Navigation Header Row -->
+  <div class="header-nav-row">
+    <div class="d-flex align-items-center justify-content-between w-100 flex-wrap gap-2">
+      <div class="brand-title-yellow">
+        <i class="bi bi-shield-fill-check me-1 text-warning"></i> Name
+      </div>
+
+      <div class="header-slogan-wireframe">
+        "We must make our country clean and honest. Join us and help your country. Lost and found object, this is a part of the events in our world."
+      </div>
+
+      <div class="d-flex align-items-center gap-3">
+        <a href="admin/login.html" class="btn-signin-header">
+          <i class="bi bi-person-circle me-1"></i> Sign in
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Action Buttons & Search Filter Bar -->
+  <div class="action-search-bar">
+    <div class="action-buttons-group">
+      <button class="btn-wireframe-lost" data-bs-toggle="modal" data-bs-target="#lostModal" id="btnTabLostHeader">
+        Lost
+      </button>
+      <button class="btn-wireframe-fund" data-bs-toggle="modal" data-bs-target="#foundModal" id="btnTabFoundHeader">
+        Fund
+      </button>
+    </div>
+
+    <div class="search-inputs-group">
+      <select id="headerItemTypeFilter" class="search-select-field" aria-label="Filter by Item Type">
+        <option value="all">NN 00</option>
+        <option value="Two wheeler">Two wheeler</option>
+        <option value="Three wheeler">Three wheeler</option>
+        <option value="Four wheeler">Four wheeler</option>
+        <option value="Gold">Gold</option>
+        <option value="Property paper">Property paper</option>
+        <option value="Bag">Bag</option>
+        <option value="Electronics">Electronics</option>
+      </select>
+      <input type="text" class="search-input-field" placeholder="NN 00" aria-label="Filter code 1">
+      <input type="text" id="globalSearchInput" class="search-input-field" placeholder="NN 00" aria-label="Search items">
+      <button class="search-btn-icon" onclick="if(typeof filterTables === 'function') filterTables();" aria-label="Search">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Tab Switch Buttons -->
+  <div class="mobile-tab-toggle-bar">
+    <div class="mobile-tab-btn active lost-tab" id="btnTabLost" onclick="switchMobileTable('lost')">
+      Lost Table
+    </div>
+    <div class="mobile-tab-btn found-tab" id="btnTabFound" onclick="switchMobileTable('found')">
+      Fund Table
+    </div>
+  </div>
+
+  <!-- 4. Dual Side-by-Side Tables Grid ("Lost tebal" & "Fund tebal") -->
+  <div class="tables-section-container">
+    <div class="row g-3">
+
+      <!-- Left Table: Lost tebal -->
+      <div class="col-lg-6" id="lostTableColumn">
+        <div class="wireframe-table-card">
+          <div class="table-title-header">Lost tebal</div>
+          <div class="table-scroll-container">
+            <table class="custom-dual-table" id="lostTable">
+              <thead>
+                <tr>
+                  <th style="width: 25%;">NN 00</th>
+                  <th style="width: 25%;">NN 00</th>
+                  <th style="width: 25%;">NN 00</th>
+                  <th style="width: 25%;">Photo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Placeholder grid rows -->
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr id="lostNoResults" style="display:none;">
+                  <td colspan="4" class="py-3 text-muted">
+                    <i class="bi bi-info-circle me-1"></i> No matching lost items found.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="table-right-scrollbar-accent"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Table: Fund tebal -->
+      <div class="col-lg-6" id="foundTableColumn">
+        <div class="wireframe-table-card">
+          <div class="table-title-header">Fund tebal</div>
+          <div class="table-scroll-container">
+            <table class="custom-dual-table" id="foundTable">
+              <thead>
+                <tr>
+                  <th style="width: 25%;">NN 00</th>
+                  <th style="width: 25%;">NN 00</th>
+                  <th style="width: 25%;">NN 00</th>
+                  <th style="width: 25%;">Photo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Placeholder grid rows -->
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>
+                <tr id="foundNoResults" style="display:none;">
+                  <td colspan="4" class="py-3 text-muted">
+                    <i class="bi bi-info-circle me-1"></i> No matching found items.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="table-right-scrollbar-accent"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 5. Footer Layout (3 Columns matching wireframe) -->
+  <footer class="wireframe-site-footer">
+    <div class="row g-4">
+
+      <div class="col-md-4 col-6">
+        <div class="footer-col-title">Quick Links</div>
+        <ul class="footer-links-list">
+          <li><a href="index.html">HOME</a></li>
+          <li><a href="#work">WORK</a></li>
+          <li><a href="#blog">BLOG</a></li>
+          <li><a href="#about">ABOUT US</a></li>
+          <li><a href="#contact">CONTACT US</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-4 col-6">
+        <div class="footer-col-title">Policy Pages</div>
+        <ul class="footer-links-list">
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
+          <li><a href="#">Refund &amp; Return Policy</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-4 col-12">
+        <div class="footer-col-title">Contact Us</div>
+        <div class="footer-contact-info">
+          <p>+91 0000000000</p>
+          <p>+91 0000000000</p>
+          <p>aaaaaaaaaaaa@gmail.com</p>
+          <p>aaaaaaaaaaaaaaaaa</p>
+          <p>aaaaaaa, India, 452011</p>
+        </div>
+        <div class="mt-2">
+          <a href="admin/login.html" class="btn btn-sm btn-outline-dark fw-bold px-3 py-1 border-2">
+            <i class="bi bi-shield-lock-fill me-1"></i> Admin Portal
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PWA Install Prompt Banner -->
+    <div class="pwa-install-banner" id="pwaInstallBanner" style="display:none; max-width: 800px; margin: 15px auto;">
+      <div class="d-flex align-items-center gap-2">
+        <i class="bi bi-phone-vibrate fs-4 text-dark"></i>
+        <div>
+          <strong class="d-block text-dark small">Install Mobile App (PWA)</strong>
+          <span class="text-muted small">Fast access directly from home screen</span>
+        </div>
+      </div>
+      <button id="pwaInstallBtn" class="btn-pwa-install">
+        <i class="bi bi-download me-1"></i> Install
+      </button>
+    </div>
+
+    <div class="copyright-bar d-flex justify-content-between align-items-center flex-wrap gap-2">
+      <div>
+        &copy; 2026 NAME. All Rights Reserved.
+      </div>
+      <div>
+        Design and Developed by <a href="https://edoply.in" target="_blank" rel="noopener"
+          class="text-dark fw-bold text-decoration-none border-bottom border-dark">Edoply Pvt Ltd</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Pass all items securely to JavaScript for instant Quick Modal rendering -->
+  <script>
+    window.allItemsData = { "lost_1": { "id": 1, "type": "lost", "title": "Hero Splendor Plus (Black\/Red)", "slug": "hero-splendor-plus-black-red-mp-09-ab-1234", "description": "Black Hero Splendor motorcycle with red decals lost near Chappan Dukan parking area.", "category_id": 1, "date_reported": "2026-08-10", "lost_found_time": "14:30:00", "location": "Chappan Dukan, Indore", "image_path": null, "status": "published", "submitted_by_name": "Rajesh Sharma", "submitted_by_email": "rajesh.sharma@example.com", "submitted_by_phone": "9826011111", "applicant_address": "45, MG Road", "applicant_city": "Indore", "applicant_village": "Indore", "applicant_state": "Madhya Pradesh", "applicant_pincode": "452001", "details": "{\u0022item_classification\u0022:\u0022vehicle\u0022,\u0022item_type\u0022:\u0022Two wheeler\u0022,\u0022vehicle_owner_name\u0022:\u0022Rajesh Sharma\u0022,\u0022vehicle_owner_address\u0022:\u002245, MG Road, Indore, MP\u0022,\u0022vehicle_reg_no\u0022:\u0022MP 09 AB 1234\u0022,\u0022vehicle_engine_no\u0022:\u0022ENG987654321\u0022,\u0022vehicle_chassis_no\u0022:\u0022CHASSIS11223344\u0022,\u0022vehicle_make_date\u0022:\u00222022-05-15\u0022,\u0022vehicle_rto\u0022:\u0022Indore RTO (MP-09)\u0022,\u0022vehicle_class\u0022:\u0022Motorcycle \\\/ Scooter\u0022,\u0022vehicle_brand\u0022:\u0022Hero Motocorp\u0022,\u0022vehicle_model\u0022:\u0022Splendor Plus\u0022,\u0022vehicle_variant\u0022:\u0022i3S Self Cast Drum\u0022,\u0022vehicle_fuel_type\u0022:\u0022Petrol\u0022,\u0022insurance_date\u0022:\u00222025-05-15\u0022,\u0022insurance_office\u0022:\u0022National Insurance, Vijay Nagar\u0022,\u0022insurance_city\u0022:\u0022Indore\u0022,\u0022insurance_state\u0022:\u0022Madhya Pradesh\u0022,\u0022insurance_contact_no\u0022:\u00229826011111\u0022,\u0022police_date\u0022:\u00222026-08-10\u0022,\u0022police_thana\u0022:\u0022Vijay Nagar Police Thana\u0022,\u0022police_city\u0022:\u0022Indore\u0022,\u0022police_village\u0022:\u0022Indore City\u0022,\u0022police_state\u0022:\u0022Madhya Pradesh\u0022,\u0022police_contact_no\u0022:\u00220731-2555555\u0022}", "created_at": "2026-08-22 15:19:06", "updated_at": "2026-08-22 15:51:31", "item_type": "Two wheeler", "category_name": "Electronics" }, "lost_2": { "id": 2, "type": "lost", "title": "Maruti Suzuki Swift White", "slug": "maruti-suzuki-swift-white-mp-09-cd-5678", "description": "White Maruti Swift car missing from Palasia Square market side.", "category_id": 1, "date_reported": "2026-08-14", "lost_found_time": "19:00:00", "location": "Palasia Square, Indore", "image_path": null, "status": "published", "submitted_by_name": "Amitabh Verma", "submitted_by_email": "amitabh@example.com", "submitted_by_phone": "9893022222", "applicant_address": "12\/4, Nanda Nagar", "applicant_city": "Indore", "applicant_village": "Indore", "applicant_state": "Madhya Pradesh", "applicant_pincode": "452011", "details": "{\u0022item_classification\u0022:\u0022vehicle\u0022,\u0022item_type\u0022:\u0022Four wheeler\u0022,\u0022vehicle_owner_name\u0022:\u0022Amitabh Verma\u0022,\u0022vehicle_owner_address\u0022:\u002212\\\/4, Nanda Nagar, Indore\u0022,\u0022vehicle_reg_no\u0022:\u0022MP 09 CD 5678\u0022,\u0022vehicle_engine_no\u0022:\u0022K12M1234567\u0022,\u0022vehicle_chassis_no\u0022:\u0022MA3EWB12S009988\u0022,\u0022vehicle_make_date\u0022:\u00222023-01-10\u0022,\u0022vehicle_rto\u0022:\u0022Indore RTO\u0022,\u0022vehicle_class\u0022:\u0022Car (Hatchback)\u0022,\u0022vehicle_brand\u0022:\u0022Maruti Suzuki\u0022,\u0022vehicle_model\u0022:\u0022Swift VXi\u0022,\u0022vehicle_variant\u0022:\u0022VXi Petrol 2023\u0022,\u0022vehicle_fuel_type\u0022:\u0022Petrol\u0022,\u0022insurance_date\u0022:\u00222026-01-10\u0022,\u0022insurance_office\u0022:\u0022United India Insurance\u0022,\u0022insurance_city\u0022:\u0022Indore\u0022,\u0022insurance_state\u0022:\u0022MP\u0022,\u0022insurance_contact_no\u0022:\u00229893022222\u0022,\u0022police_date\u0022:\u00222026-08-14\u0022,\u0022police_thana\u0022:\u0022Palasia Thana\u0022,\u0022police_city\u0022:\u0022Indore\u0022,\u0022police_village\u0022:\u0022Indore\u0022,\u0022police_state\u0022:\u0022MP\u0022,\u0022police_contact_no\u0022:\u00220731-2444444\u0022}", "created_at": "2026-08-22 15:19:06", "updated_at": "2026-08-22 15:51:31", "item_type": "Four wheeler", "category_name": "Electronics" }, "lost_3": { "id": 3, "type": "lost", "title": "Gold Chain 22K (18.5 Grams)", "slug": "gold-chain-22k-18-5-grams-3", "description": "Lost 22 karat gold chain with Om locket during shopping between Rajwada and Sarafa Bazar.", "category_id": 1, "date_reported": "2026-08-18", "lost_found_time": "17:45:00", "location": "Between Rajwada to Sarafa Bazar, Indore", "image_path": null, "status": "published", "submitted_by_name": "Sunita Devi", "submitted_by_email": "sunita@example.com", "submitted_by_phone": "9827033333", "applicant_address": "88, Tilak Nagar", "applicant_city": "Indore", "applicant_village": "Indore", "applicant_state": "Madhya Pradesh", "applicant_pincode": "452018", "details": "{\u0022item_classification\u0022:\u0022general\u0022,\u0022item_type\u0022:\u0022Gold (गोल्ड / सोना)\u0022,\u0022general_item_name\u0022:\u0022Gold Chain 22K (\\u0938\\u094b\\u0928\\u0947 \\u0915\\u0940 \\u091a\\u0947\\u0928)\u0022,\u0022general_weight\u0022:\u002218.5 Grams\u0022,\u0022general_item_qty\u0022:\u00221\u0022,\u0022general_physical_condition\u0022:\u0022Yellow Gold 22 Karat with small Om pendant\u0022,\u0022general_location_range\u0022:\u0022Between Rajwada market to Sarafa Bazar\u0022,\u0022insurance_date\u0022:\u0022\u0022,\u0022insurance_office\u0022:\u0022\u0022,\u0022insurance_city\u0022:\u0022\u0022,\u0022insurance_state\u0022:\u0022\u0022,\u0022insurance_contact_no\u0022:\u0022\u0022,\u0022police_date\u0022:\u00222026-08-18\u0022,\u0022police_thana\u0022:\u0022Sarafa Police Thana\u0022,\u0022police_city\u0022:\u0022Indore\u0022,\u0022police_village\u0022:\u0022Indore\u0022,\u0022police_state\u0022:\u0022Madhya Pradesh\u0022,\u0022police_contact_no\u0022:\u00220731-2533333\u0022}", "created_at": "2026-08-22 15:19:06", "updated_at": "2026-08-22 15:51:31", "item_type": "Gold (गोल्ड / सोना)", "category_name": "Electronics" }, "found_4": { "id": 4, "type": "found", "title": "Honda Activa 6G Grey", "slug": "honda-activa-6g-grey-mp-09-ef-9012", "description": "Found abandoned grey Honda Activa near IT Park Square with key in ignition.", "category_id": 1, "date_reported": "2026-08-16", "lost_found_time": "10:15:00", "location": "IT Park Square, Bhawarkua, Indore", "image_path": null, "status": "published", "submitted_by_name": "Mahesh Patel", "submitted_by_email": "mahesh.p@example.com", "submitted_by_phone": "9755044444", "applicant_address": "Shop 5, IT Park Road", "applicant_city": "Indore", "applicant_village": "Indore", "applicant_state": "Madhya Pradesh", "applicant_pincode": "452014", "details": "{\u0022item_classification\u0022:\u0022vehicle\u0022,\u0022item_type\u0022:\u0022Two wheeler\u0022,\u0022vehicle_reg_no\u0022:\u0022MP 09 EF 9012\u0022,\u0022vehicle_engine_no\u0022:\u0022JF50E7890123\u0022,\u0022vehicle_chassis_no\u0022:\u0022ME4JF504L887766\u0022,\u0022vehicle_make_date\u0022:\u00222021-08-20\u0022,\u0022vehicle_rto\u0022:\u0022Indore RTO\u0022,\u0022vehicle_class\u0022:\u0022Scooter\u0022,\u0022vehicle_brand\u0022:\u0022Honda\u0022,\u0022vehicle_model\u0022:\u0022Activa 6G\u0022,\u0022vehicle_variant\u0022:\u0022DLX Matte Grey\u0022,\u0022vehicle_fuel_type\u0022:\u0022Petrol\u0022,\u0022police_date\u0022:\u00222026-08-16\u0022,\u0022police_thana\u0022:\u0022Bhawarkua Police Station\u0022,\u0022police_city\u0022:\u0022Indore\u0022,\u0022police_village\u0022:\u0022Indore\u0022,\u0022police_state\u0022:\u0022Madhya Pradesh\u0022,\u0022police_contact_no\u0022:\u00220731-2600000\u0022}", "created_at": "2026-08-22 15:19:06", "updated_at": "2026-08-22 15:51:31", "item_type": "Two wheeler", "category_name": "Electronics" }, "found_5": { "id": 5, "type": "found", "title": "Bajaj Auto Rickshaw (CNG)", "slug": "bajaj-auto-rickshaw-cng-mp-09-ta-3344", "description": "Parked unclaimed for 3 days near Indore Railway Station Platform 1 auto stand.", "category_id": 1, "date_reported": "2026-08-19", "lost_found_time": "08:00:00", "location": "Indore Railway Station, Indore", "image_path": null, "status": "published", "submitted_by_name": "Dharmendra Singh", "submitted_by_email": "dharmendra@example.com", "submitted_by_phone": "9826055555", "applicant_address": "Auto Stand Union, Railway Station", "applicant_city": "Indore", "applicant_village": "Indore", "applicant_state": "Madhya Pradesh", "applicant_pincode": "452001", "details": "{\u0022item_classification\u0022:\u0022vehicle\u0022,\u0022item_type\u0022:\u0022Three wheeler\u0022,\u0022vehicle_reg_no\u0022:\u0022MP 09 TA 3344\u0022,\u0022vehicle_engine_no\u0022:\u0022BAJ3W998877\u0022,\u0022vehicle_chassis_no\u0022:\u0022MD2A35BY889900\u0022,\u0022vehicle_make_date\u0022:\u00222020-11-10\u0022,\u0022vehicle_rto\u0022:\u0022Indore RTO\u0022,\u0022vehicle_class\u0022:\u0022Auto Rickshaw (Passenger)\u0022,\u0022vehicle_brand\u0022:\u0022Bajaj Auto\u0022,\u0022vehicle_model\u0022:\u0022Compact 4S\u0022,\u0022vehicle_variant\u0022:\u0022CNG Passenger\u0022,\u0022vehicle_fuel_type\u0022:\u0022CNG\u0022,\u0022police_date\u0022:\u00222026-08-19\u0022,\u0022police_thana\u0022:\u0022Railway Station Police Thana\u0022,\u0022police_city\u0022:\u0022Indore\u0022,\u0022police_village\u0022:\u0022Indore\u0022,\u0022police_state\u0022:\u0022Madhya Pradesh\u0022,\u0022police_contact_no\u0022:\u00220731-2522222\u0022}", "created_at": "2026-08-22 15:19:06", "updated_at": "2026-08-22 15:51:31", "item_type": "Three wheeler", "category_name": "Electronics" }, "found_6": { "id": 6, "type": "found", "title": "Wildcraft Laptop Backpack", "slug": "wildcraft-laptop-backpack-6", "description": "Found left on bus seat traveling from City Bus Stand towards Bengali Square.", "category_id": 1, "date_reported": "2026-08-20", "lost_found_time": "16:20:00", "location": "City Bus Route 11, Indore", "image_path": null, "status": "published", "submitted_by_name": "Kunal Joshi", "submitted_by_email": "kunal@example.com", "submitted_by_phone": "9893066666", "applicant_address": "42, Anand Nagar", "applicant_city": "Indore", "applicant_village": "Indore", "applicant_state": "Madhya Pradesh", "applicant_pincode": "452001", "details": "{\u0022item_classification\u0022:\u0022general\u0022,\u0022item_type\u0022:\u0022Bag (बैग / पर्स)\u0022,\u0022general_item_name\u0022:\u0022Leather Laptop Backpack (Wildcraft)\u0022,\u0022general_weight\u0022:\u00221.5 Kg\u0022,\u0022general_item_qty\u0022:\u00221\u0022,\u0022general_physical_condition\u0022:\u0022Black colour with blue strip, contains documents and notebook\u0022,\u0022general_location_range\u0022:\u0022Between Bus Stand to Pipliyahana Square\u0022,\u0022police_date\u0022:\u00222026-08-20\u0022,\u0022police_thana\u0022:\u0022Tilak Nagar Thana\u0022,\u0022police_city\u0022:\u0022Indore\u0022,\u0022police_village\u0022:\u0022Indore\u0022,\u0022police_state\u0022:\u0022Madhya Pradesh\u0022,\u0022police_contact_no\u0022:\u00220731-2499999\u0022}", "created_at": "2026-08-22 15:19:06", "updated_at": "2026-08-22 15:51:31", "item_type": "Bag (बैग / पर्स)", "category_name": "Electronics" } };
+  </script>
+
+  <!-- Include Dynamic Modals for Reporting & Quick Preview -->
+
+
+  <div class="modal fade custom-app-modal" id="lostModal" tabindex="-1" aria-labelledby="lostModalLabel"
+    aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable modal-fullscreen-md-down">
+      <div class="modal-content border-0 shadow-2xl rounded-4 overflow-hidden">
+
+        <!-- Modal Header -->
+        <div class="modal-header text-white px-3 px-md-4 py-3"
+          style="background: linear-gradient(135deg, #d9480f 0%, #e65c00 100%); border-bottom: 3.5px solid #000000;">
+          <div class="d-flex align-items-center gap-2 gap-md-3">
+            <div
+              class="modal-header-badge bg-white text-dark rounded-3 d-flex align-items-center justify-content-center shadow-sm border border-dark"
+              style="width: 44px; height: 44px; font-size: 22px; flex-shrink: 0;">
+              <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+            </div>
+            <div>
+              <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-white text-dark fw-bold px-2 py-1 small border border-dark">LOST REPORT</span>
+                <span class="small text-white-50 d-none d-sm-inline">Citizen Public Registry</span>
+              </div>
+              <h5 class="modal-title fw-black mb-0 text-white" id="lostModalLabel"
+                style="font-family: 'Outfit', sans-serif; font-size: calc(1.05rem + 0.3vw);">
+                Report Lost Property <span class="d-block d-sm-inline opacity-90 small">(खोई हुई संपत्ति दर्ज
+                  करें)</span>
+              </h5>
+            </div>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body p-3 p-md-4" style="background-color: #fff9f5;">
+          <form id="form-report-lost" enctype="multipart/form-data" novalidate>
+            <input type="hidden" name="type" value="lost">
+            <input type="hidden" name="item_classification" id="lost_classification" value="vehicle">
+
+            <!-- Section 1: Applicant Information -->
+            <div class="card border-2 border-dark rounded-3 shadow-sm mb-3 mb-md-4 bg-white overflow-hidden">
+              <div
+                class="card-header bg-light py-2 px-3 border-bottom border-2 border-dark d-flex align-items-center gap-2">
+                <span class="badge bg-dark text-white rounded-circle"
+                  style="width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px;">1</span>
+                <strong class="text-dark small text-uppercase fw-bold">Applicant Information (आवेदक विवरण)</strong>
+              </div>
+              <div class="card-body p-3 p-md-4">
+                <div class="row g-2 g-md-3">
+                  <div class="col-12 col-md-4">
+                    <label class="form-label fw-bold small text-dark mb-1">Name applicant (आवेदक का नाम) <span
+                        class="text-danger">*</span></label>
+                    <input type="text" class="form-control form-control-lg custom-input" name="submitted_by_name"
+                      placeholder="Full name of applicant" required>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <label class="form-label fw-bold small text-dark mb-1">Email (ईमेल) <span
+                        class="text-danger">*</span></label>
+                    <input type="email" class="form-control form-control-lg custom-input" name="submitted_by_email"
+                      placeholder="example@gmail.com" required>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <label class="form-label fw-bold small text-dark mb-1">Contact No. (मोबाइल नंबर) <span
+                        class="text-danger">* Compulsory</span></label>
+                    <input type="tel" class="form-control form-control-lg custom-input" name="submitted_by_phone"
+                      placeholder="10-digit mobile number" required>
+                  </div>
+
+                  <div class="col-12">
+                    <label class="form-label fw-bold small text-dark mb-1">Address (Complete) (पूरा पता) <span
+                        class="text-danger">* Compulsory</span></label>
+                    <input type="text" class="form-control custom-input" name="applicant_address"
+                      placeholder="House/Flat No, Street Name, Area / Landmark" required>
+                  </div>
+
+                  <div class="col-6 col-md-3">
+                    <label class="form-label fw-semibold small text-muted mb-1">City (शहर)</label>
+                    <input type="text" class="form-control custom-input" name="applicant_city"
+                      placeholder="e.g. Indore">
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <label class="form-label fw-semibold small text-muted mb-1">Village (ग्राम / क्षेत्र)</label>
+                    <input type="text" class="form-control custom-input" name="applicant_village"
+                      placeholder="Village / Area">
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <label class="form-label fw-semibold small text-muted mb-1">State (राज्य)</label>
+                    <input type="text" class="form-control custom-input" name="applicant_state" value="Madhya Pradesh"
+                      placeholder="State">
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <label class="form-label fw-semibold small text-muted mb-1">Pin Code (पिन कोड)</label>
+                    <input type="text" class="form-control custom-input" name="applicant_pincode" placeholder="452011">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 2: Type of Item Selection -->
+            <div class="card border-2 border-dark rounded-3 shadow-sm mb-3 mb-md-4 bg-white overflow-hidden">
+              <div
+                class="card-header bg-light py-2 px-3 border-bottom border-2 border-dark d-flex align-items-center gap-2">
+                <span class="badge bg-dark text-white rounded-circle"
+                  style="width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px;">2</span>
+                <strong class="text-dark small text-uppercase fw-bold">Type of Item (वस्तु का प्रकार एवं
+                  श्रेणी)</strong>
+              </div>
+              <div class="card-body p-3 p-md-4">
+                <div class="row g-2 g-md-3">
+                  <div class="col-12 col-md-6">
+                    <label class="form-label fw-bold small text-dark mb-1">Select Item Type (वस्तु चुनें) <span
+                        class="text-danger">*</span></label>
+                    <select class="form-select form-select-lg custom-input item-type-selector" name="item_type"
+                      data-type="lost" required>
+                      <option value="" disabled selected>-- Choose Category / Item Type --</option>
+                      <optgroup label="🚗 Vehicles & Transport (वाहन)">
+                        <option value="Two wheeler" data-group="vehicle">Two wheeler (दो पहिया)</option>
+                        <option value="Three wheeler" data-group="vehicle">Three wheeler (तीन पहिया)</option>
+                        <option value="Four wheeler" data-group="vehicle">Four wheeler (चार पहिया)</option>
+                        <option value="Heavy transport vehicle" data-group="vehicle">Heavy transport vehicle (भारी वाहन)
+                        </option>
+                        <option value="Bicycle" data-group="vehicle">Bicycle (साइकिल)</option>
+                      </optgroup>
+                      <optgroup label="📜 Valuables & Documents (दस्तावेज़ एवं कीमती सामान)">
+                        <option value="Gold (गोल्ड / सोना)" data-group="general">Gold (गोल्ड / सोना)</option>
+                        <option value="Property paper (रजिस्ट्री)" data-group="general">Property paper / रजिस्ट्री
+                          (House / Land Registry)</option>
+                        <option value="Bill (बिल / रसीद)" data-group="general">Bill (बिल / रसीद)</option>
+                        <option value="Driving License (ड्राइविंग लाइसेंस)" data-group="general">Driving License
+                          (ड्राइविंग लाइसेंस)</option>
+                        <option value="Passport (पासपोर्ट)" data-group="general">Passport (पासपोर्ट)</option>
+                        <option value="Bag (बैग / पर्स)" data-group="general">Bag (बैग / पर्स)</option>
+                        <option value="Electronics" data-group="general">Electronics (मोबाइल / लैपटॉप)</option>
+                        <option value="Other" data-group="general">Other Category (अन्य)</option>
+                      </optgroup>
+                    </select>
+                  </div>
+
+                  <div class="col-12 col-md-6">
+                    <label class="form-label fw-bold small text-dark mb-1">Active Form Mode (फ़ॉर्म प्रकार)</label>
+                    <input type="text" class="form-control form-control-lg custom-input bg-light text-muted fw-bold"
+                      id="lost_group_display" value="Vehicle Details Form (वाहन विवरण)" readonly>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 3A: VEHICLE SPECIFIC FIELDS -->
+            <div class="vehicle-specific-fields-lost">
+              <div class="card border-2 border-primary rounded-3 shadow-sm mb-3 mb-md-4 bg-white overflow-hidden">
+                <div class="card-header bg-primary text-white py-2 px-3 d-flex align-items-center gap-2">
+                  <span class="badge bg-white text-primary rounded-circle"
+                    style="width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold;">3</span>
+                  <strong class="small text-uppercase fw-bold"><i class="bi bi-car-front-fill me-1"></i> Vehicle
+                    Specifications (वाहन का सम्पूर्ण विवरण)</strong>
+                </div>
+                <div class="card-body p-3 p-md-4">
+                  <div class="row g-2 g-md-3">
+
+                    <div class="col-12 col-md-6">
+                      <label class="form-label fw-bold small text-dark mb-1">Name Owner (वाहन मालिक का नाम as per
+                        RC)</label>
+                      <input type="text" class="form-control custom-input" name="details[vehicle_owner_name]"
+                        placeholder="Registered owner name">
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label class="form-label fw-bold small text-dark mb-1">Address (Complete) as per RC</label>
+                      <input type="text" class="form-control custom-input" name="details[vehicle_owner_address]"
+                        placeholder="Owner address in RC book">
+                    </div>
+
+
+                    <div class="col-12 col-md-4">
+                      <label class="form-label fw-bold small text-danger mb-1">Registration No. (गाड़ी नंबर) <span
+                          class="text-danger">*</span></label>
+                      <input type="text" class="form-control form-control-lg custom-input text-uppercase fw-black"
+                        name="details[vehicle_reg_no]" placeholder="e.g. MP 09 AB 1234">
+                    </div>
+                    <div class="col-6 col-md-4">
+                      <label class="form-label fw-bold small text-dark mb-1">Engine Number</label>
+                      <input type="text" class="form-control custom-input text-uppercase"
+                        name="details[vehicle_engine_no]" placeholder="Engine No.">
+                    </div>
+                    <div class="col-6 col-md-4">
+                      <label class="form-label fw-bold small text-dark mb-1">Chassis Number</label>
+                      <input type="text" class="form-control custom-input text-uppercase"
+                        name="details[vehicle_chassis_no]" placeholder="Chassis No.">
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                      <label class="form-label fw-semibold small text-muted mb-1">Make DD/MM/YYYY</label>
+                      <input type="date" class="form-control custom-input" name="details[vehicle_make_date]">
+                    </div>
+                    <div class="col-6 col-md-3">
+                      <label class="form-label fw-semibold small text-muted mb-1">RTO Office</label>
+                      <input type="text" class="form-control custom-input" name="details[vehicle_rto]"
+                        placeholder="e.g. Indore RTO (MP-09)">
+                    </div>
+                    <div class="col-6 col-md-3">
+                      <label class="form-label fw-semibold small text-muted mb-1">Brand (निर्माता)</label>
+                      <input type="text" class="form-control custom-input" name="details[vehicle_brand]"
+                        placeholder="e.g. Hero / Honda / Maruti">
+                    </div>
+                    <div class="col-6 col-md-3">
+                      <label class="form-label fw-semibold small text-muted mb-1">Model Variant</label>
+                      <input type="text" class="form-control custom-input" name="details[vehicle_model_variant]"
+                        placeholder="e.g. Splendor Plus / Swift VXi">
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                      <label class="form-label fw-bold small text-dark mb-1">Fuel Type (ईंधन का प्रकार)</label>
+                      <select class="form-select custom-input" name="details[vehicle_fuel_type]">
+                        <option value="Petrol">Petrol (पेट्रोल)</option>
+                        <option value="EV">EV / Electric (इलेक्ट्रिक)</option>
+                        <option value="Diesel">Diesel (डीजल)</option>
+                        <option value="CNG">CNG</option>
+                        <option value="LPG">LPG</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                      <label class="form-label fw-bold small text-dark mb-1"><i class="bi bi-camera me-1"></i> Vehicle
+                        Photo (गाड़ी फोटो)</label>
+                      <input type="file" class="form-control custom-input" name="vehicle_photo" accept="image/*">
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                      <label class="form-label fw-bold small text-dark mb-1"><i
+                          class="bi bi-file-earmark-medical me-1"></i> RC Photo (आरसी फोटो)</label>
+                      <input type="file" class="form-control custom-input" name="vehicle_rc_photo"
+                        accept="image/*,.pdf">
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 3B: GENERAL / VALUABLES SPECIFIC FIELDS -->
+            <div class="general-specific-fields-lost" style="display:none;">
+              <div class="card border-2 border-danger rounded-3 shadow-sm mb-3 mb-md-4 bg-white overflow-hidden">
+                <div class="card-header bg-danger text-white py-2 px-3 d-flex align-items-center gap-2">
+                  <span class="badge bg-white text-danger rounded-circle"
+                    style="width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold;">3</span>
+                  <strong class="small text-uppercase fw-bold"><i class="bi bi-box-seam-fill me-1"></i> Item Description
+                    (सामान का सम्पूर्ण विवरण)</strong>
+                </div>
+                <div class="card-body p-3 p-md-4">
+                  <div class="row g-2 g-md-3">
+                    <div class="col-12 col-md-6">
+                      <label class="form-label fw-bold small text-dark mb-1">Item Title / Name (सामान का नाम) <span
+                          class="text-danger">*</span></label>
+                      <input type="text" class="form-control form-control-lg custom-input"
+                        name="details[general_item_name]"
+                        placeholder="e.g. 22K Gold Necklace, Registry File, Black Laptop Bag">
+                    </div>
+                    <div class="col-6 col-md-3">
+                      <label class="form-label fw-bold small text-danger mb-1">Weight W/t (वजन - Gold/Jewelry)</label>
+                      <input type="text" class="form-control custom-input fw-bold" name="details[general_weight]"
+                        placeholder="e.g. 18.5 Grams / 250 gm">
+                    </div>
+                    <div class="col-6 col-md-3">
+                      <label class="form-label fw-bold small text-dark mb-1">Quantity (मात्रा/संख्या)</label>
+                      <input type="text" class="form-control custom-input" name="details[general_item_qty]"
+                        placeholder="1" value="1">
+                    </div>
+
+                    <div class="col-12">
+                      <label class="form-label fw-bold small text-dark mb-1">Physical Condition & Identification Marks
+                        (पहचान चिन्ह/विवरण)</label>
+                      <textarea class="form-control custom-input" name="details[general_physical_condition]" rows="2"
+                        placeholder="Describe color, brand, hallmark, documents inside, specific marks, serial numbers, etc."></textarea>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                      <label class="form-label fw-bold small text-dark mb-1"><i class="bi bi-camera me-1"></i>
+                        Photograph of Item (सामान का फोटो)</label>
+                      <input type="file" class="form-control custom-input" name="item_photo" accept="image/*">
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label class="form-label fw-bold small text-dark mb-1">Location Range (स्थान सीमा -
+                        From/To)</label>
+                      <input type="text" class="form-control custom-input" name="details[general_location_range]"
+                        placeholder="Lost Between Location Range (स्थान सीमा - From/To) (e.g. Rajwada to Palasia Square)">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 4: Incident Location & Time -->
+            <div class="card border-2 border-dark rounded-3 shadow-sm mb-3 mb-md-4 bg-white overflow-hidden">
+              <div
+                class="card-header bg-light py-2 px-3 border-bottom border-2 border-dark d-flex align-items-center gap-2">
+                <span class="badge bg-dark text-white rounded-circle"
+                  style="width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px;">4</span>
+                <strong class="text-dark small text-uppercase fw-bold">Incident Location & Date (घटना स्थल एवं
+                  दिनांक)</strong>
+              </div>
+              <div class="card-body p-3 p-md-4">
+                <div class="row g-2 g-md-3">
+                  <div class="col-12 col-md-6">
+                    <label class="form-label fw-bold small text-danger mb-1">Place of Loss (खो जाने का मुख्य स्थान /
+                      पता) <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control form-control-lg custom-input fw-bold" name="location"
+                      placeholder="Exact landmark, market, road name, or area" required>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <label class="form-label fw-bold small text-dark mb-1">Date of Loss (खो जाने की तिथि) <span
+                        class="text-danger">*</span></label>
+                    <input type="date" class="form-control custom-input" name="date_reported" value="2026-09-02"
+                      required>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <label class="form-label fw-semibold small text-muted mb-1">Time of Loss (खो जाने का समय)</label>
+                    <input type="time" class="form-control custom-input" name="lost_found_time">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 5: Police Station Details -->
+            <div class="card border-2 border-dark rounded-3 shadow-sm mb-3 mb-md-4 bg-white overflow-hidden">
+              <div
+                class="card-header bg-light py-2 px-3 border-bottom border-2 border-dark d-flex align-items-center gap-2">
+                <span class="badge bg-dark text-white rounded-circle"
+                  style="width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px;">5</span>
+                <strong class="text-dark small text-uppercase fw-bold"><i
+                    class="bi bi-building-shield me-1 text-primary"></i> Police Station Details (थाना शिकायत
+                  विवरण)</strong>
+              </div>
+              <div class="card-body p-3 p-md-4">
+                <div class="row g-2 g-md-3">
+                  <div class="col-12 col-md-4">
+                    <label class="form-label fw-bold small text-dark mb-1">Police Thana Name (थाना का नाम)</label>
+                    <input type="text" class="form-control custom-input" name="details[police_thana]"
+                      placeholder="e.g. Thana Vijay Nagar / Tukoganj">
+                  </div>
+                  <div class="col-6 col-md-4">
+                    <label class="form-label fw-semibold small text-muted mb-1">Thana Contact / Phone No.</label>
+                    <input type="text" class="form-control custom-input" name="details[police_contact_no]"
+                      placeholder="Police station contact number">
+                  </div>
+                  <div class="col-6 col-md-4">
+                    <label class="form-label fw-semibold small text-muted mb-1">Complaint / FIR Date</label>
+                    <input type="date" class="form-control custom-input" name="details[police_date]">
+                  </div>
+
+                  <div class="col-12 col-md-6">
+                    <label class="form-label fw-semibold small text-muted mb-1"><i
+                        class="bi bi-file-earmark-check me-1"></i> FIR / Complaint Copy Photo</label>
+                    <input type="file" class="form-control custom-input" name="police_photo" accept="image/*,.pdf">
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <label class="form-label fw-semibold small text-muted mb-1">Thana City (शहर)</label>
+                    <input type="text" class="form-control custom-input" name="details[police_city]"
+                      placeholder="Indore">
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <label class="form-label fw-semibold small text-muted mb-1">State (राज्य)</label>
+                    <input type="text" class="form-control custom-input" name="details[police_state]"
+                      value="Madhya Pradesh" placeholder="State">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 6: Insurance Details (For Vehicles) -->
+
+            <div class="vehicle-specific-fields-lost">
+              <div class="card border-2 border-dark rounded-3 shadow-sm mb-3 mb-md-4 bg-white overflow-hidden">
+                <div
+                  class="card-header bg-light py-2 px-3 border-bottom border-2 border-dark d-flex align-items-center gap-2">
+                  <span class="badge bg-dark text-white rounded-circle"
+                    style="width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px;">6</span>
+                  <strong class="text-dark small text-uppercase fw-bold"><i
+                      class="bi bi-shield-check me-1 text-success"></i> Insurance Details (बीमा कंपनी विवरण)</strong>
+                </div>
+                <div class="card-body p-3 p-md-4">
+                  <div class="row g-2 g-md-3">
+                    <div class="col-12 col-md-4">
+                      <label class="form-label fw-bold small text-dark mb-1">Insurance Office / Company</label>
+                      <input type="text" class="form-control custom-input" name="details[insurance_office]"
+                        placeholder="e.g. New India / ICICI Lombard / TATA AIG">
+                    </div>
+                    <div class="col-6 col-md-4">
+                      <label class="form-label fw-semibold small text-muted mb-1">Policy / Toll-free Contact</label>
+                      <input type="text" class="form-control custom-input" name="details[insurance_contact_no]"
+                        placeholder="Helpline / Policy No.">
+                    </div>
+                    <div class="col-6 col-md-4">
+                      <label class="form-label fw-semibold small text-muted mb-1">Insurance Policy Date</label>
+                      <input type="date" class="form-control custom-input" name="details[insurance_date]">
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                      <label class="form-label fw-semibold small text-muted mb-1"><i
+                          class="bi bi-file-earmark-medical me-1"></i> Insurance Policy Photo</label>
+                      <input type="file" class="form-control custom-input" name="insurance_photo" accept="image/*,.pdf">
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label class="form-label fw-semibold small text-muted mb-1">Insurance Branch / City</label>
+                      <input type="text" class="form-control custom-input" name="details[insurance_city]"
+                        placeholder="Branch City">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- Section 7: Description & Notes -->
+            <div class="card border-2 border-dark rounded-3 shadow-sm mb-3 mb-md-4 bg-white overflow-hidden">
+              <div
+                class="card-header bg-light py-2 px-3 border-bottom border-2 border-dark d-flex align-items-center gap-2">
+                <span class="badge bg-dark text-white rounded-circle"
+                  style="width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px;">7</span>
+                <strong class="text-dark small text-uppercase fw-bold">Additional Remarks (अन्य कोई विशेष
+                  जानकारी)</strong>
+              </div>
+              <div class="card-body p-3 p-md-4">
+                <textarea class="form-control custom-input" name="description" rows="3"
+                  placeholder="Provide any additional marks, stickers, identifying characteristics, or background notes that help verify ownership."></textarea>
+              </div>
+            </div>
+
+            <div id="lostAlert" class="alert d-none shadow-sm fw-bold"></div>
+
+            <!-- Modal Footer with Touch Friendly Submit -->
+            <div class="p-3 bg-white border border-2 border-dark rounded-3 shadow-sm text-center">
+              <button type="submit"
+                class="btn btn-warning border-3 border-dark btn-lg w-100 py-3 fw-black text-uppercase shadow-sm"
+                style="font-size: 17px; letter-spacing: 0.5px;">
+                <i class="bi bi-send-check-fill me-2"></i> Submit Report Lost Property (दर्ज करें)
+              </button>
+              <div class="small text-muted mt-2 fw-semibold"><i class="bi bi-lock-fill me-1"></i> Your report will be
+                immediately recorded and published on citizen portal.</div>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="modal fade custom-app-modal" id="foundModal" tabindex="-1" aria-labelledby="foundModalLabel"
+    aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable modal-fullscreen-md-down">
+      <div class="modal-content border-0 shadow-2xl rounded-4 overflow-hidden">
+
+        <!-- Modal Header -->
+        <div class="modal-header text-white px-3 px-md-4 py-3"
+          style="background: linear-gradient(135deg, #2b8a3e 0%, #2f9e44 100%); border-bottom: 3.5px solid #000000;">
+          <div class="d-flex align-items-center gap-2 gap-md-3">
+            <div
+              class="modal-header-badge bg-white text-dark rounded-3 d-flex align-items-center justify-content-center shadow-sm border border-dark"
+              style="width: 44px; height: 44px; font-size: 22px; flex-shrink: 0;">
+              <i class="bi bi-check-circle-fill text-success"></i>
+            </div>
+            <div>
+              <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-white text-dark fw-bold px-2 py-1 small border border-dark">FOUND REPORT</span>
+                <span class="small text-white-50 d-none d-sm-inline">Citizen Public Registry</span>
+              </div>
+              <h5 class="modal-title fw-black mb-0 text-white" id="foundModalLabel"
+                style="font-family: 'Outfit', sans-serif; font-size: calc(1.05rem + 0.3vw);">
+                Report Found Property <span class="d-block d-sm-inline opacity-90 small">(मिली / पाई गई संपत्ति दर्ज
+                  करें)</span>
+              </h5>
+            </div>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body p-3 p-md-4" style="background-color: #fff9f5;">
+          <form id="form-report-found" enctype="multipart/form-data" novalidate>
+            <input type="hidden" name="type" value="found">
+            <input type="hidden" name="item_classification" id="found_classification" value="vehicle">
+
+            <!-- Section 1: Applicant Information -->
+            <div class="card border-2 border-dark rounded-3 shadow-sm mb-3 mb-md-4 bg-white overflow-hidden">
+              <div
+                class="card-header bg-light py-2 px-3 border-bottom border-2 border-dark d-flex align-items-center gap-2">
+                <span class="badge bg-dark text-white rounded-circle"
+                  style="width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px;">1</span>
+                <strong class="text-dark small text-uppercase fw-bold">Applicant Information (आवेदक विवरण)</strong>
+              </div>
+              <div class="card-body p-3 p-md-4">
+                <div class="row g-2 g-md-3">
+                  <div class="col-12 col-md-4">
+                    <label class="form-label fw-bold small text-dark mb-1">Name applicant (आवेदक का नाम) <span
+                        class="text-danger">*</span></label>
+                    <input type="text" class="form-control form-control-lg custom-input" name="submitted_by_name"
+                      placeholder="Full name of applicant" required>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <label class="form-label fw-bold small text-dark mb-1">Email (ईमेल) <span
+                        class="text-danger">*</span></label>
+                    <input type="email" class="form-control form-control-lg custom-input" name="submitted_by_email"
+                      placeholder="example@gmail.com" required>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <label class="form-label fw-bold small text-dark mb-1">Contact No. (मोबाइल नंबर) <span
+                        class="text-danger">* Compulsory</span></label>
+                    <input type="tel" class="form-control form-control-lg custom-input" name="submitted_by_phone"
+                      placeholder="10-digit mobile number" required>
+                  </div>
+
+                  <div class="col-12">
+                    <label class="form-label fw-bold small text-dark mb-1">Address (Complete) (पूरा पता) <span
+                        class="text-danger">* Compulsory</span></label>
+                    <input type="text" class="form-control custom-input" name="applicant_address"
+                      placeholder="House/Flat No, Street Name, Area / Landmark" required>
+                  </div>
+
+                  <div class="col-6 col-md-3">
+                    <label class="form-label fw-semibold small text-muted mb-1">City (शहर)</label>
+                    <input type="text" class="form-control custom-input" name="applicant_city"
+                      placeholder="e.g. Indore">
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <label class="form-label fw-semibold small text-muted mb-1">Village (ग्राम / क्षेत्र)</label>
+                    <input type="text" class="form-control custom-input" name="applicant_village"
+                      placeholder="Village / Area">
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <label class="form-label fw-semibold small text-muted mb-1">State (राज्य)</label>
+                    <input type="text" class="form-control custom-input" name="applicant_state" value="Madhya Pradesh"
+                      placeholder="State">
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <label class="form-label fw-semibold small text-muted mb-1">Pin Code (पिन कोड)</label>
+                    <input type="text" class="form-control custom-input" name="applicant_pincode" placeholder="452011">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 2: Type of Item Selection -->
+            <div class="card border-2 border-dark rounded-3 shadow-sm mb-3 mb-md-4 bg-white overflow-hidden">
+              <div
+                class="card-header bg-light py-2 px-3 border-bottom border-2 border-dark d-flex align-items-center gap-2">
+                <span class="badge bg-dark text-white rounded-circle"
+                  style="width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px;">2</span>
+                <strong class="text-dark small text-uppercase fw-bold">Type of Item (वस्तु का प्रकार एवं
+                  श्रेणी)</strong>
+              </div>
+              <div class="card-body p-3 p-md-4">
+                <div class="row g-2 g-md-3">
+                  <div class="col-12 col-md-6">
+                    <label class="form-label fw-bold small text-dark mb-1">Select Item Type (वस्तु चुनें) <span
+                        class="text-danger">*</span></label>
+                    <select class="form-select form-select-lg custom-input item-type-selector" name="item_type"
+                      data-type="found" required>
+                      <option value="" disabled selected>-- Choose Category / Item Type --</option>
+                      <optgroup label="🚗 Vehicles & Transport (वाहन)">
+                        <option value="Two wheeler" data-group="vehicle">Two wheeler (दो पहिया)</option>
+                        <option value="Three wheeler" data-group="vehicle">Three wheeler (तीन पहिया)</option>
+                        <option value="Four wheeler" data-group="vehicle">Four wheeler (चार पहिया)</option>
+                        <option value="Heavy transport vehicle" data-group="vehicle">Heavy transport vehicle (भारी वाहन)
+                        </option>
+                        <option value="Bicycle" data-group="vehicle">Bicycle (साइकिल)</option>
+                      </optgroup>
+                      <optgroup label="📜 Valuables & Documents (दस्तावेज़ एवं कीमती सामान)">
+                        <option value="Gold (गोल्ड / सोना)" data-group="general">Gold (गोल्ड / सोना)</option>
+                        <option value="Property paper (रजिस्ट्री)" data-group="general">Property paper / रजिस्ट्री
+                          (House / Land Registry)</option>
+                        <option value="Bill (बिल / रसीद)" data-group="general">Bill (बिल / रसीद)</option>
+                        <option value="Driving License (ड्राइविंग लाइसेंस)" data-group="general">Driving License
+                          (ड्राइविंग लाइसेंस)</option>
+                        <option value="Passport (पासपोर्ट)" data-group="general">Passport (पासपोर्ट)</option>
+                        <option value="Bag (बैग / पर्स)" data-group="general">Bag (बैग / पर्स)</option>
+                        <option value="Electronics" data-group="general">Electronics (मोबाइल / लैपटॉप)</option>
+                        <option value="Other" data-group="general">Other Category (अन्य)</option>
+                      </optgroup>
+                    </select>
+                  </div>
+
+                  <div class="col-12 col-md-6">
+                    <label class="form-label fw-bold small text-dark mb-1">Active Form Mode (फ़ॉर्म प्रकार)</label>
+                    <input type="text" class="form-control form-control-lg custom-input bg-light text-muted fw-bold"
+                      id="found_group_display" value="Vehicle Details Form (वाहन विवरण)" readonly>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 3A: VEHICLE SPECIFIC FIELDS -->
+            <div class="vehicle-specific-fields-found">
+              <div class="card border-2 border-primary rounded-3 shadow-sm mb-3 mb-md-4 bg-white overflow-hidden">
+                <div class="card-header bg-primary text-white py-2 px-3 d-flex align-items-center gap-2">
+                  <span class="badge bg-white text-primary rounded-circle"
+                    style="width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold;">3</span>
+                  <strong class="small text-uppercase fw-bold"><i class="bi bi-car-front-fill me-1"></i> Vehicle
+                    Specifications (वाहन का सम्पूर्ण विवरण)</strong>
+                </div>
+                <div class="card-body p-3 p-md-4">
+                  <div class="row g-2 g-md-3">
+
+
+                    <div class="col-12 col-md-4">
+                      <label class="form-label fw-bold small text-danger mb-1">Registration No. (गाड़ी नंबर) <span
+                          class="text-danger">*</span></label>
+                      <input type="text" class="form-control form-control-lg custom-input text-uppercase fw-black"
+                        name="details[vehicle_reg_no]" placeholder="e.g. MP 09 AB 1234">
+                    </div>
+                    <div class="col-6 col-md-4">
+                      <label class="form-label fw-bold small text-dark mb-1">Engine Number</label>
+                      <input type="text" class="form-control custom-input text-uppercase"
+                        name="details[vehicle_engine_no]" placeholder="Engine No.">
+                    </div>
+                    <div class="col-6 col-md-4">
+                      <label class="form-label fw-bold small text-dark mb-1">Chassis Number</label>
+                      <input type="text" class="form-control custom-input text-uppercase"
+                        name="details[vehicle_chassis_no]" placeholder="Chassis No.">
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                      <label class="form-label fw-semibold small text-muted mb-1">Make DD/MM/YYYY</label>
+                      <input type="date" class="form-control custom-input" name="details[vehicle_make_date]">
+                    </div>
+                    <div class="col-6 col-md-3">
+                      <label class="form-label fw-semibold small text-muted mb-1">RTO Office</label>
+                      <input type="text" class="form-control custom-input" name="details[vehicle_rto]"
+                        placeholder="e.g. Indore RTO (MP-09)">
+                    </div>
+                    <div class="col-6 col-md-3">
+                      <label class="form-label fw-semibold small text-muted mb-1">Brand (निर्माता)</label>
+                      <input type="text" class="form-control custom-input" name="details[vehicle_brand]"
+                        placeholder="e.g. Hero / Honda / Maruti">
+                    </div>
+                    <div class="col-6 col-md-3">
+                      <label class="form-label fw-semibold small text-muted mb-1">Model Variant</label>
+                      <input type="text" class="form-control custom-input" name="details[vehicle_model_variant]"
+                        placeholder="e.g. Splendor Plus / Swift VXi">
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                      <label class="form-label fw-bold small text-dark mb-1">Fuel Type (ईंधन का प्रकार)</label>
+                      <select class="form-select custom-input" name="details[vehicle_fuel_type]">
+                        <option value="Petrol">Petrol (पेट्रोल)</option>
+                        <option value="EV">EV / Electric (इलेक्ट्रिक)</option>
+                        <option value="Diesel">Diesel (डीजल)</option>
+                        <option value="CNG">CNG</option>
+                        <option value="LPG">LPG</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                      <label class="form-label fw-bold small text-dark mb-1"><i class="bi bi-camera me-1"></i> Vehicle
+                        Photo (गाड़ी फोटो)</label>
+                      <input type="file" class="form-control custom-input" name="vehicle_photo" accept="image/*">
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 3B: GENERAL / VALUABLES SPECIFIC FIELDS -->
+            <div class="general-specific-fields-found" style="display:none;">
+              <div class="card border-2 border-danger rounded-3 shadow-sm mb-3 mb-md-4 bg-white overflow-hidden">
+                <div class="card-header bg-danger text-white py-2 px-3 d-flex align-items-center gap-2">
+                  <span class="badge bg-white text-danger rounded-circle"
+                    style="width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold;">3</span>
+                  <strong class="small text-uppercase fw-bold"><i class="bi bi-box-seam-fill me-1"></i> Item Description
+                    (सामान का सम्पूर्ण विवरण)</strong>
+                </div>
+                <div class="card-body p-3 p-md-4">
+                  <div class="row g-2 g-md-3">
+                    <div class="col-12 col-md-6">
+                      <label class="form-label fw-bold small text-dark mb-1">Item Title / Name (सामान का नाम) <span
+                          class="text-danger">*</span></label>
+                      <input type="text" class="form-control form-control-lg custom-input"
+                        name="details[general_item_name]"
+                        placeholder="e.g. 22K Gold Necklace, Registry File, Black Laptop Bag">
+                    </div>
+                    <div class="col-6 col-md-3">
+                      <label class="form-label fw-bold small text-danger mb-1">Weight W/t (वजन - Gold/Jewelry)</label>
+                      <input type="text" class="form-control custom-input fw-bold" name="details[general_weight]"
+                        placeholder="e.g. 18.5 Grams / 250 gm">
+                    </div>
+                    <div class="col-6 col-md-3">
+                      <label class="form-label fw-bold small text-dark mb-1">Quantity (मात्रा/संख्या)</label>
+                      <input type="text" class="form-control custom-input" name="details[general_item_qty]"
+                        placeholder="1" value="1">
+                    </div>
+
+                    <div class="col-12">
+                      <label class="form-label fw-bold small text-dark mb-1">Physical Condition & Identification Marks
+                        (पहचान चिन्ह/विवरण)</label>
+                      <textarea class="form-control custom-input" name="details[general_physical_condition]" rows="2"
+                        placeholder="Describe color, brand, hallmark, documents inside, specific marks, serial numbers, etc."></textarea>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                      <label class="form-label fw-bold small text-dark mb-1"><i class="bi bi-camera me-1"></i>
+                        Photograph of Item (सामान का फोटो)</label>
+                      <input type="file" class="form-control custom-input" name="item_photo" accept="image/*">
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label class="form-label fw-bold small text-dark mb-1">Location Range (स्थान सीमा -
+                        From/To)</label>
+                      <input type="text" class="form-control custom-input" name="details[general_location_range]"
+                        placeholder="Found Location Range (स्थान सीमा) (e.g. Rajwada to Palasia Square)">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 4: Incident Location & Time -->
+            <div class="card border-2 border-dark rounded-3 shadow-sm mb-3 mb-md-4 bg-white overflow-hidden">
+              <div
+                class="card-header bg-light py-2 px-3 border-bottom border-2 border-dark d-flex align-items-center gap-2">
+                <span class="badge bg-dark text-white rounded-circle"
+                  style="width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px;">4</span>
+                <strong class="text-dark small text-uppercase fw-bold">Incident Location & Date (घटना स्थल एवं
+                  दिनांक)</strong>
+              </div>
+              <div class="card-body p-3 p-md-4">
+                <div class="row g-2 g-md-3">
+                  <div class="col-12 col-md-6">
+                    <label class="form-label fw-bold small text-danger mb-1">Place of Finding (प्राप्त होने का मुख्य
+                      स्थान / पता) <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control form-control-lg custom-input fw-bold" name="location"
+                      placeholder="Exact landmark, market, road name, or area" required>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <label class="form-label fw-bold small text-dark mb-1">Date of Finding (प्राप्त होने की तिथि) <span
+                        class="text-danger">*</span></label>
+                    <input type="date" class="form-control custom-input" name="date_reported" value="2026-09-02"
+                      required>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <label class="form-label fw-semibold small text-muted mb-1">Time of Finding (प्राप्त होने का
+                      समय)</label>
+                    <input type="time" class="form-control custom-input" name="lost_found_time">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 5: Police Station Details -->
+            <div class="card border-2 border-dark rounded-3 shadow-sm mb-3 mb-md-4 bg-white overflow-hidden">
+              <div
+                class="card-header bg-light py-2 px-3 border-bottom border-2 border-dark d-flex align-items-center gap-2">
+                <span class="badge bg-dark text-white rounded-circle"
+                  style="width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px;">5</span>
+                <strong class="text-dark small text-uppercase fw-bold"><i
+                    class="bi bi-building-shield me-1 text-primary"></i> Police Station Details (थाना शिकायत
+                  विवरण)</strong>
+              </div>
+              <div class="card-body p-3 p-md-4">
+                <div class="row g-2 g-md-3">
+                  <div class="col-12 col-md-4">
+                    <label class="form-label fw-bold small text-dark mb-1">Police Thana Name (थाना का नाम)</label>
+                    <input type="text" class="form-control custom-input" name="details[police_thana]"
+                      placeholder="e.g. Thana Vijay Nagar / Tukoganj">
+                  </div>
+                  <div class="col-6 col-md-4">
+                    <label class="form-label fw-semibold small text-muted mb-1">Thana Contact / Phone No.</label>
+                    <input type="text" class="form-control custom-input" name="details[police_contact_no]"
+                      placeholder="Police station contact number">
+                  </div>
+                  <div class="col-6 col-md-4">
+                    <label class="form-label fw-semibold small text-muted mb-1">Complaint / FIR Date</label>
+                    <input type="date" class="form-control custom-input" name="details[police_date]">
+                  </div>
+
+                  <div class="col-12 col-md-6">
+                    <label class="form-label fw-semibold small text-muted mb-1"><i
+                        class="bi bi-file-earmark-check me-1"></i> FIR / Complaint Copy Photo</label>
+                    <input type="file" class="form-control custom-input" name="police_photo" accept="image/*,.pdf">
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <label class="form-label fw-semibold small text-muted mb-1">Thana City (शहर)</label>
+                    <input type="text" class="form-control custom-input" name="details[police_city]"
+                      placeholder="Indore">
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <label class="form-label fw-semibold small text-muted mb-1">State (राज्य)</label>
+                    <input type="text" class="form-control custom-input" name="details[police_state]"
+                      value="Madhya Pradesh" placeholder="State">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 6: Insurance Details (For Vehicles) -->
+
+
+            <!-- Section 7: Description & Notes -->
+            <div class="card border-2 border-dark rounded-3 shadow-sm mb-3 mb-md-4 bg-white overflow-hidden">
+              <div
+                class="card-header bg-light py-2 px-3 border-bottom border-2 border-dark d-flex align-items-center gap-2">
+                <span class="badge bg-dark text-white rounded-circle"
+                  style="width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px;">6</span>
+                <strong class="text-dark small text-uppercase fw-bold">Additional Remarks (अन्य कोई विशेष
+                  जानकारी)</strong>
+              </div>
+              <div class="card-body p-3 p-md-4">
+                <textarea class="form-control custom-input" name="description" rows="3"
+                  placeholder="Provide any additional marks, stickers, identifying characteristics, or background notes that help verify ownership."></textarea>
+              </div>
+            </div>
+
+            <div id="foundAlert" class="alert d-none shadow-sm fw-bold"></div>
+
+            <!-- Modal Footer with Touch Friendly Submit -->
+            <div class="p-3 bg-white border border-2 border-dark rounded-3 shadow-sm text-center">
+              <button type="submit"
+                class="btn btn-warning border-3 border-dark btn-lg w-100 py-3 fw-black text-uppercase shadow-sm"
+                style="font-size: 17px; letter-spacing: 0.5px;">
+                <i class="bi bi-send-check-fill me-2"></i> Submit Report Found Property (दर्ज करें)
+              </button>
+              <div class="small text-muted mt-2 fw-semibold"><i class="bi bi-lock-fill me-1"></i> Your report will be
+                immediately recorded and published on citizen portal.</div>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- Quick Item Details View Modal -->
+  <div class="modal fade" id="quickDetailModal" tabindex="-1" aria-labelledby="quickDetailModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable modal-fullscreen-sm-down">
+      <div class="modal-content border-3 border-dark shadow-2xl rounded-4 overflow-hidden">
+
+        <div class="modal-header bg-dark text-white py-3 px-4 border-bottom border-3 border-dark">
+          <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-shield-shaded text-warning fs-4"></i>
+            <h5 class="modal-title fw-black mb-0 text-white" id="quickDetailModalLabel"
+              style="font-family: 'Outfit', sans-serif;">
+              Item Quick Overview (त्वरित विवरण)
+            </h5>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body p-3 p-md-4 bg-light" id="quickDetailContent">
+          <div class="text-center py-5">
+            <div class="spinner-border text-warning" role="status"></div>
+            <p class="mt-2 text-muted fw-bold">Loading item details...</p>
+          </div>
+        </div>
+
+        <div class="modal-footer bg-white border-top border-2 border-dark d-flex justify-content-between p-3">
+          <button type="button" class="btn btn-outline-dark fw-bold px-4 py-2 border-2" data-bs-dismiss="modal">
+            <i class="bi bi-x-lg me-1"></i> Close
+          </button>
+          <a href="#" id="viewFullDetailsBtn" class="btn btn-warning border-2 border-dark fw-black px-4 py-2 shadow-sm">
+            Open Full Details Page &rarr;
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>
