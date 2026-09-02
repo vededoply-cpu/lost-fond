@@ -447,17 +447,26 @@
 
     <div class="search-inputs-group">
       <select id="headerItemTypeFilter" class="search-select-field" aria-label="Filter by Item Type">
-        <option value="all">NN 00</option>
-        <option value="Two wheeler">Two wheeler</option>
-        <option value="Three wheeler">Three wheeler</option>
-        <option value="Four wheeler">Four wheeler</option>
-        <option value="Gold">Gold</option>
-        <option value="Property paper">Property paper</option>
-        <option value="Bag">Bag</option>
-        <option value="Electronics">Electronics</option>
+        <option value="all">-- All Item Types (सभी प्रकार) --</option>
+        <optgroup label="Vehicles & Transport">
+          <option value="Two wheeler">Two wheeler (दो पहिया)</option>
+          <option value="Three wheeler">Three wheeler (तीन पहिया)</option>
+          <option value="Four wheeler">Four wheeler (चार पहिया)</option>
+          <option value="Heavy transport vehicle">Heavy transport vehicle (भारी वाहन)</option>
+          <option value="Bicycle">Bicycle (साइकिल)</option>
+        </optgroup>
+        <optgroup label="Valuables & Documents">
+          <option value="Gold">Gold (गोल्ड / सोना)</option>
+          <option value="Property paper">Property paper (रजिस्ट्री)</option>
+          <option value="Bill">Bill (बिल / रसीद)</option>
+          <option value="Driving License">Driving License (ड्राइविंग लाइसेंस)</option>
+          <option value="Passport">Passport (पासपोर्ट)</option>
+          <option value="Bag">Bag (बैग / पर्स)</option>
+          <option value="Electronics">Electronics (मोबाइल / लैपटॉप)</option>
+          <option value="Other">Other Category (अन्य)</option>
+        </optgroup>
       </select>
-      <input type="text" class="search-input-field" placeholder="NN 00" aria-label="Filter code 1">
-      <input type="text" id="globalSearchInput" class="search-input-field" placeholder="NN 00" aria-label="Search items">
+      <input type="text" id="globalSearchInput" class="search-input-field" placeholder="Search Reg No, Chassis, Engine, Item Name..." aria-label="Search items">
       <button class="search-btn-icon" onclick="if(typeof filterTables === 'function') filterTables();" aria-label="Search">
         <i class="bi bi-search"></i>
       </button>
