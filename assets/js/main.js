@@ -520,8 +520,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Fill remaining placeholder rows up to 22 so full container is sky blue striped
-        const lostPlaceholdersNeeded = Math.max(0, 22 - lostCount);
+        // Fill remaining placeholder rows up to 45 so full container has 45-50 sky blue striped rows
+        const totalTargetRows = 45;
+        const lostPlaceholdersNeeded = Math.max(0, totalTargetRows - lostCount);
         for (let i = 0; i < lostPlaceholdersNeeded; i++) {
             lostHtml += `
                 <tr class="empty-placeholder-row">
@@ -534,7 +535,7 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
         }
 
-        const foundPlaceholdersNeeded = Math.max(0, 22 - foundCount);
+        const foundPlaceholdersNeeded = Math.max(0, totalTargetRows - foundCount);
         for (let i = 0; i < foundPlaceholdersNeeded; i++) {
             foundHtml += `
                 <tr class="empty-placeholder-row">
