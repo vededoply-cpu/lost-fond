@@ -530,7 +530,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
-                    <td><span class="btn-view-circle-yellow"><i class="bi bi-record-fill"></i></span></td>
+                    <td>&nbsp;</td>
                 </tr>
             `;
         }
@@ -543,7 +543,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
-                    <td><span class="btn-view-circle-yellow"><i class="bi bi-record-fill"></i></span></td>
+                    <td>&nbsp;</td>
                 </tr>
             `;
         }
