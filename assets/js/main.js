@@ -488,17 +488,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 details = typeof item.details === 'string' ? JSON.parse(item.details) : (item.details || {});
             } catch(e) {}
 
-            const regNo = details.vehicle_reg_no || item.title || 'NN 00';
-            const chassis = details.vehicle_chassis_no || details.general_weight || 'NN 00';
-            const engine = details.vehicle_engine_no || details.police_thana || 'NN 00';
-            const photoVal = item.image_path ? `<img src="${escapeHtml(item.image_path)}" style="height:22px; max-width:40px; object-fit:cover;">` : (details.vehicle_brand || 'Photo');
+            const itemType = item.item_type || details.item_type || '';
+            const regNo = details.vehicle_reg_no || (item.title ? item.title.toUpperCase() : 'NN 00');
+            const chassis = details.vehicle_chassis_no || (details.general_weight ? 'WT: ' + details.general_weight : 'NN 00');
+            const engine = details.vehicle_engine_no || (details.general_item_qty ? 'Qty: ' + details.general_item_qty : 'NN 00');
+            const modelVariant = details.vehicle_model_variant || details.vehicle_model || details.general_item_name || itemType || 'NN 00';
 
             const rowHtml = `
-                <tr class="data-row ${item.type}-row clickable-row" onclick="showItemQuickView('${key}')" data-search="${escapeHtml(regNo)} ${escapeHtml(chassis)} ${escapeHtml(engine)} ${escapeHtml(item.title)}" data-item-type="${escapeHtml(item.item_type || '')}">
-                    <td>${escapeHtml(regNo)}</td>
+                <tr class="data-row ${item.type}-row clickable-row" onclick="showItemQuickView('${key}')" data-search="${escapeHtml(regNo)} ${escapeHtml(chassis)} ${escapeHtml(engine)} ${escapeHtml(modelVariant)} ${escapeHtml(item.title)}" data-item-type="${escapeHtml(itemType)}">
+                    <td>
+                        <span class="reg-no-danger">${escapeHtml(regNo)}</span>
+                        ${itemType ? `<span class="item-type-subtext">${escapeHtml(itemType)}</span>` : ''}
+                    </td>
                     <td>${escapeHtml(chassis)}</td>
                     <td>${escapeHtml(engine)}</td>
-                    <td>${photoVal}</td>
+                    <td>${escapeHtml(modelVariant)}</td>
+                    <td>
+                        <span class="btn-view-circle-yellow" title="View Details">
+                            <i class="bi bi-record-fill"></i>
+                        </span>
+                    </td>
                 </tr>
             `;
 
@@ -511,19 +520,35 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Fill remaining placeholder rows up to 20
-        const lostPlaceholdersNeeded = Math.max(0, 20 - lostCount);
+        // Fill remaining placeholder rows up to 22 so full container is sky blue striped
+        const lostPlaceholdersNeeded = Math.max(0, 22 - lostCount);
         for (let i = 0; i < lostPlaceholdersNeeded; i++) {
-            lostHtml += `<tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>`;
+            lostHtml += `
+                <tr class="empty-placeholder-row">
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td><span class="btn-view-circle-yellow"><i class="bi bi-record-fill"></i></span></td>
+                </tr>
+            `;
         }
 
-        const foundPlaceholdersNeeded = Math.max(0, 20 - foundCount);
+        const foundPlaceholdersNeeded = Math.max(0, 22 - foundCount);
         for (let i = 0; i < foundPlaceholdersNeeded; i++) {
-            foundHtml += `<tr class="empty-placeholder-row"><td>NN 00</td><td>NN 00</td><td>NN 00</td><td>Photo</td></tr>`;
+            foundHtml += `
+                <tr class="empty-placeholder-row">
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td><span class="btn-view-circle-yellow"><i class="bi bi-record-fill"></i></span></td>
+                </tr>
+            `;
         }
 
-        lostHtml += `<tr id="lostNoResults" style="display:none;"><td colspan="4" class="py-3 text-muted"><i class="bi bi-info-circle me-1"></i> No matching lost items found.</td></tr>`;
-        foundHtml += `<tr id="foundNoResults" style="display:none;"><td colspan="4" class="py-3 text-muted"><i class="bi bi-info-circle me-1"></i> No matching found items.</td></tr>`;
+        lostHtml += `<tr id="lostNoResults" style="display:none;"><td colspan="5" class="py-3 text-muted"><i class="bi bi-info-circle me-1"></i> No matching lost items found.</td></tr>`;
+        foundHtml += `<tr id="foundNoResults" style="display:none;"><td colspan="5" class="py-3 text-muted"><i class="bi bi-info-circle me-1"></i> No matching found items.</td></tr>`;
 
         lostTbody.innerHTML = lostHtml;
         foundTbody.innerHTML = foundHtml;
