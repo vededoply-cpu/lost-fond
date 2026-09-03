@@ -54,18 +54,20 @@
     /* 1. Top Illustration Header Banner */
     .top-banner-graphics {
       background: transparent;
-      padding: 6px 20px;
+      padding: 8px 16px;
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
       align-items: center;
       overflow-x: auto;
       white-space: nowrap;
-      gap: 15px;
+      gap: 10px;
     }
 
     .top-banner-graphics img {
-      height: 70px;
+      height: 75px;
+      max-width: 13%;
       object-fit: contain;
+      flex: 0 1 auto;
     }
 
     /* 2. Brand Name, Tagline & Navigation Menu Row */
@@ -451,14 +453,15 @@
 
 <body>
 
-  <!-- 1. Top Illustration Header Banner (All 6 Images) -->
-  <div class="top-banner-graphics" style="justify-content: space-around; padding: 12px 16px; gap: 20px;">
-    <img src="assets/images/1.png" alt="Colored Burglar" style="height: 80px; object-fit: contain;">
-    <img src="assets/images/2.png" alt="4 Frames" style="height: 80px; object-fit: contain;">
-    <img src="assets/images/3.png" alt="B&W Burglar" style="height: 80px; object-fit: contain;">
-    <img src="assets/images/4.png" alt="House Thief" style="height: 80px; object-fit: contain;">
-    <img src="assets/images/5.png" alt="Vehicle Theft" style="height: 80px; object-fit: contain;">
-    <img src="assets/images/6.png" alt="Investigation" style="height: 80px; object-fit: contain;">
+  <!-- 1. Top Illustration Header Banner (All 7 Images) -->
+  <div class="top-banner-graphics">
+    <img src="assets/images/1.png" alt="Colored Burglar">
+    <img src="assets/images/2.png" alt="4 Frames">
+    <img src="assets/images/3.png" alt="B&W Burglar">
+    <img src="assets/images/4.png" alt="House Thief">
+    <img src="assets/images/5.png" alt="Vehicle Theft">
+    <img src="assets/images/6.png" alt="Investigation">
+    <img src="assets/images/7.jpeg" alt="Illustration 7">
   </div>
 
   <!-- 2. Brand Name, Slogan Tagline & Navigation Header Row -->
