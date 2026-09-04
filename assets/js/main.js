@@ -520,8 +520,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Fill remaining placeholder rows up to 45 so full container has 45-50 sky blue striped rows
-        const totalTargetRows = 45;
+        // Fill remaining placeholder rows up to 50 so full container has 50 sky blue striped rows
+        const totalTargetRows = 50;
         const lostPlaceholdersNeeded = Math.max(0, totalTargetRows - lostCount);
         for (let i = 0; i < lostPlaceholdersNeeded; i++) {
             lostHtml += `
@@ -558,4 +558,19 @@ document.addEventListener('DOMContentLoaded', function() {
     renderWireframeTables();
 
 });
+
+// Global Smooth Scroll Helpers for Up & Down Navigation Widget
+window.scrollToTop = function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.querySelectorAll('.table-scroll-container').forEach(c => {
+        c.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+};
+
+window.scrollToBottom = function() {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    document.querySelectorAll('.table-scroll-container').forEach(c => {
+        c.scrollTo({ top: c.scrollHeight, behavior: 'smooth' });
+    });
+};
 
