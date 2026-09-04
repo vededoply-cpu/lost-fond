@@ -335,27 +335,31 @@
       flex: 1;
       min-height: 300px;
       max-height: calc(100vh - 280px);
-      overflow-y: auto;
+      overflow-y: scroll;
       background: #80c1e3;
+      scrollbar-width: thin;
+      scrollbar-color: #1c5276 #6ab1db;
     }
 
-    /* Table Scrollbar Styling */
+    /* Table Scrollbar Styling - Always Visible */
     .table-scroll-container::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
+      width: 10px;
+      height: 10px;
+      display: block;
     }
 
     .table-scroll-container::-webkit-scrollbar-track {
-      background: #71b4d9;
+      background: #6ab1db;
     }
 
     .table-scroll-container::-webkit-scrollbar-thumb {
-      background: #468ebb;
-      border-radius: 4px;
+      background: #1c5276;
+      border-radius: 5px;
+      border: 2px solid #6ab1db;
     }
 
     .table-scroll-container::-webkit-scrollbar-thumb:hover {
-      background: #2b6f9a;
+      background: #0d2e45;
     }
 
     .custom-dual-table {
